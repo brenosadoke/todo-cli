@@ -7,16 +7,14 @@ import sys
 import json
 
 from todo.commands.list import ListCommand
+from todo.utils.filters import filter_todos
 from todo.utils.styles import Fore, Back, Style
 
 
 class SearchCommand(ListCommand):
     def get_matches(self, search, todos):
         """Returns items that match the query"""
-        if not search:
-            return None
-        search_lower = search.lower()
-        return [ todo for todo in todos if search_lower in todo['title'].lower() ]
+        return filter_todos(search, todos)
 
 
     def print_results(self, todos=[]):
